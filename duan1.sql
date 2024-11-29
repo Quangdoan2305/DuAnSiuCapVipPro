@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost:3307
--- Generation Time: Nov 26, 2024 at 05:32 AM
--- Server version: 8.0.30
--- PHP Version: 8.1.10
+-- Host: 127.0.0.1
+-- Generation Time: Nov 29, 2024 at 08:53 PM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -28,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `attribute` (
-  `id` int NOT NULL,
-  `name` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `attribute`
@@ -47,10 +47,10 @@ INSERT INTO `attribute` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `attribute_value` (
-  `id` int NOT NULL,
-  `attribute_id` int NOT NULL,
-  `value` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `attribute_id` int(11) NOT NULL,
+  `value` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `attribute_value`
@@ -69,11 +69,11 @@ INSERT INTO `attribute_value` (`id`, `attribute_id`, `value`) VALUES
 --
 
 CREATE TABLE `cart` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `cart`
@@ -90,12 +90,12 @@ INSERT INTO `cart` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
 --
 
 CREATE TABLE `cart_detail` (
-  `id` int NOT NULL,
-  `cart_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `quantity` int DEFAULT '1',
-  `product_variants_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `cart_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT 1,
+  `product_variants_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `cart_detail`
@@ -113,9 +113,9 @@ INSERT INTO `cart_detail` (`id`, `cart_id`, `product_id`, `quantity`, `product_v
 --
 
 CREATE TABLE `categories` (
-  `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `categories`
@@ -134,21 +134,21 @@ INSERT INTO `categories` (`id`, `name`) VALUES
 --
 
 CREATE TABLE `order` (
-  `id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `status` enum('pending','completed','canceled') COLLATE utf8mb3_unicode_ci DEFAULT 'pending',
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `status` enum('pending','completed','canceled') DEFAULT 'pending',
   `total` decimal(10,2) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order`
 --
 
 INSERT INTO `order` (`id`, `user_id`, `status`, `total`, `created_at`, `updated_at`) VALUES
-(1, 1, 'completed', '550000.00', '2024-11-13 04:04:09', '2024-11-13 04:04:09'),
-(2, 2, 'pending', '150000.00', '2024-11-13 04:04:09', '2024-11-13 04:04:09');
+(1, 1, 'completed', 550000.00, '2024-11-13 04:04:09', '2024-11-13 04:04:09'),
+(2, 2, 'pending', 150000.00, '2024-11-13 04:04:09', '2024-11-13 04:04:09');
 
 -- --------------------------------------------------------
 
@@ -157,13 +157,13 @@ INSERT INTO `order` (`id`, `user_id`, `status`, `total`, `created_at`, `updated_
 --
 
 CREATE TABLE `order_detail` (
-  `id` int NOT NULL,
-  `order_id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `quantity` int DEFAULT '1',
-  `price` int NOT NULL,
-  `product_variants_id` int DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `order_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `quantity` int(11) DEFAULT 1,
+  `price` int(11) NOT NULL,
+  `product_variants_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `order_detail`
@@ -181,17 +181,17 @@ INSERT INTO `order_detail` (`id`, `order_id`, `product_id`, `quantity`, `price`,
 --
 
 CREATE TABLE `products` (
-  `id` int NOT NULL,
-  `name` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `category_id` int NOT NULL,
-  `description` text COLLATE utf8mb3_unicode_ci,
-  `price` int NOT NULL,
-  `price_sale` int DEFAULT NULL,
-  `stock` int DEFAULT '0',
-  `image_main` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `category_id` int(11) NOT NULL,
+  `description` text DEFAULT NULL,
+  `price` int(11) NOT NULL,
+  `price_sale` int(11) DEFAULT NULL,
+  `stock` int(11) DEFAULT 0,
+  `image_main` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `products`
@@ -211,12 +211,12 @@ INSERT INTO `products` (`id`, `name`, `category_id`, `description`, `price`, `pr
 --
 
 CREATE TABLE `product_comment` (
-  `id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `comment` text COLLATE utf8mb3_unicode_ci,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `comment` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_comment`
@@ -233,10 +233,10 @@ INSERT INTO `product_comment` (`id`, `product_id`, `user_id`, `comment`, `create
 --
 
 CREATE TABLE `product_image` (
-  `id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `image` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `image` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_image`
@@ -255,12 +255,12 @@ INSERT INTO `product_image` (`id`, `product_id`, `image`) VALUES
 --
 
 CREATE TABLE `product_rating` (
-  `id` int NOT NULL,
-  `product_id` int NOT NULL,
-  `user_id` int NOT NULL,
-  `rating` tinyint DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
-) ;
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `rating` tinyint(4) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `product_rating`
@@ -277,23 +277,23 @@ INSERT INTO `product_rating` (`id`, `product_id`, `user_id`, `rating`, `created_
 --
 
 CREATE TABLE `product_variants` (
-  `id` int NOT NULL,
-  `product_id` int NOT NULL,
+  `id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
   `price` decimal(10,2) NOT NULL,
-  `stock` int NOT NULL,
-  `image` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `sku` varchar(50) COLLATE utf8mb3_unicode_ci NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `stock` int(11) NOT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `sku` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_variants`
 --
 
 INSERT INTO `product_variants` (`id`, `product_id`, `price`, `stock`, `image`, `sku`) VALUES
-(1, 1, '150000.00', 30, NULL, 'ABC1'),
-(2, 1, '300000.00', 20, NULL, 'ABC2'),
-(3, 2, '250000.00', 15, NULL, 'ABC3'),
-(4, 2, '250000.00', 25, NULL, 'ABC4');
+(1, 1, 150000.00, 30, NULL, 'ABC1'),
+(2, 1, 300000.00, 20, NULL, 'ABC2'),
+(3, 2, 250000.00, 15, NULL, 'ABC3'),
+(4, 2, 250000.00, 25, NULL, 'ABC4');
 
 -- --------------------------------------------------------
 
@@ -302,10 +302,10 @@ INSERT INTO `product_variants` (`id`, `product_id`, `price`, `stock`, `image`, `
 --
 
 CREATE TABLE `product_variant_attribute` (
-  `id` int NOT NULL,
-  `attribute_value_id` int NOT NULL,
-  `product_variants_id` int NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `attribute_value_id` int(11) NOT NULL,
+  `product_variants_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `product_variant_attribute`
@@ -324,27 +324,27 @@ INSERT INTO `product_variant_attribute` (`id`, `attribute_value_id`, `product_va
 --
 
 CREATE TABLE `users` (
-  `id` int NOT NULL,
-  `name` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `email` varchar(100) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `password` varchar(255) COLLATE utf8mb3_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `phone` varchar(15) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `image` varchar(255) COLLATE utf8mb3_unicode_ci DEFAULT NULL,
-  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-  `updated_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `role` enum('1','2') COLLATE utf8mb3_unicode_ci NOT NULL DEFAULT '2' COMMENT '1: Admin\r\n2: User'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3 COLLATE=utf8mb3_unicode_ci;
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `address` varchar(255) DEFAULT NULL,
+  `phone` varchar(15) DEFAULT NULL,
+  `image` varchar(255) DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
+  `role` enum('1','2') NOT NULL DEFAULT '2' COMMENT '1: Admin\r\n2: User'
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `address`, `phone`, `image`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'Minh Nhật', 'vmn9112005@gmail.com', '$2y$10$KPhZ0zHE.98Mb95.ttpkqOoMxKny4k3Tf4s9BNwXaJJrC9kjYE/Vm', '123 Main St', '0123456789', 'assets/Admin/upload/6743ff3a2f07d.jpg', '2024-11-13 04:02:30', '2024-11-24 21:38:18', '1'),
-(2, 'Jane Smith', 'jane@example.com', '$2y$10$KPhZ0zHE.98Mb95.ttpkqOoMxKny4k3Tf4s9BNwXaJJrC9kjYE/Vm', '456 Elm St', '0987654321', '', '2024-11-13 04:02:30', '2024-11-24 20:10:56', '1'),
-(10, 'Vũ Minh Nhật', 'vmn911205@gmail.com', '$2y$10$sJETNZbyFdMa.BDKfb35setPdE2QOxE/g4qdWZI/bNJDQwSkrWLLW', 'Hà Nam', '0816817832', 'assets/Admin/upload/674391e66d0fb.jpg', '2024-11-22 11:07:44', '2024-11-25 22:28:42', '2'),
-(12, 'Nhật', '123456789876543@gmail.com', '$2y$10$FhiK202QBvk7x7ZW6RrYouRYfphPKVx1Ti5H.yVJ9G/gc30jFJdkq', '1234567', '234567890', 'assets/Admin/upload/67455bf6a411c.jpeg', '2024-11-25 22:26:15', '2024-11-25 22:26:15', '1');
+(1, 'Ngọc Quang', 'quang2305@gmail.com', '$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', '123 Main St', '0123456789', 'assets/Admin/upload/6743ff3a2f07d.jpg', '2024-11-13 04:02:30', '2024-11-29 15:52:37', '1'),
+(2, 'Jane Smith', 'jane@gmail.com', '$2y$10$KPhZ0zHE.98Mb95.ttpkqOoMxKny4k3Tf4s9BNwXaJJrC9kjYE/Vm$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', '456 Elm St', '0987654321', '', '2024-11-13 04:02:30', '2024-11-29 15:53:56', '2'),
+(3, 'Người dùng 1', 'user@gmail.com', '$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', '123 Main St', '0987612345', '', '2024-11-29 15:56:21', '2024-11-29 15:58:00', '2'),
+(18, 'trungkien2005', 'trungkien@gmail.com', '$2y$10$60QFU6Sx3gaCPRzgWLkbJ.SEFjd3KuCDIn8jarAq6VOv9aAPWPD3e', 'Portual', '0987654123', 'assets/Admin/upload674a1a38e4100.png', '2024-11-29 13:47:05', '2024-11-29 13:47:05', '1');
 
 --
 -- Indexes for dumped tables
@@ -461,85 +461,85 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `attribute`
 --
 ALTER TABLE `attribute`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `attribute_value`
 --
 ALTER TABLE `attribute_value`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `cart_detail`
 --
 ALTER TABLE `cart_detail`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `order`
 --
 ALTER TABLE `order`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `order_detail`
 --
 ALTER TABLE `order_detail`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `product_comment`
 --
 ALTER TABLE `product_comment`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT for table `product_rating`
 --
 ALTER TABLE `product_rating`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `product_variants`
 --
 ALTER TABLE `product_variants`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `product_variant_attribute`
 --
 ALTER TABLE `product_variant_attribute`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- Constraints for dumped tables

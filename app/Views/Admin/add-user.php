@@ -68,8 +68,50 @@
                         <div class="main-content-inner">
                             <!-- main-content-wrap -->
                             <div class="main-content-wrap">
-                                <div class="wg-box">
-                                    Dashboard
+                            <div class="wg-box">
+                                    <?php
+                                        if(isset($_SESSION['message'])){
+                                            echo "<p>". $_SESSION['message'] . "</p>";
+                                        }
+                                    ?>
+                                    <div class="title-box">
+                                        Thêm mới Users
+                                    </div>
+                                    <form action="<?= BASE_URL ?>?role=admin&act=post-add-user" method="post" enctype="multipart/form-data">
+                                        <div class="mb-3">
+                                            <label for="name">Name</label>
+                                            <input type="text" id="name" placeholder="Name" name="name" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="name">Email</label>
+                                            <input type="email" id="email" placeholder="Email" name="email" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="password">Password</label>
+                                            <input type="password" id="password" placeholder="Password" name="password" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="address">Address</label>
+                                            <input type="text" id="address" placeholder="Address" name="address" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="phone">Phone</label>
+                                            <input type="text" id="phone" placeholder="Phone" name="phone" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="image">Image</label>
+                                            <input type="file" id="image"  name="image" accept="image/*" class="form-control">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="role">Role</label>
+                                            <select name="role" id="role" class="form-control">
+                                                <option value="" hidden>Select Role</option>
+                                                <option value="1">Admin</option>
+                                                <option value="2">User</option>
+                                            </select>
+                                        </div>
+                                        <button class="btn btn-success">Thêm mới</button>
+                                    </form>
                                 </div>
                             </div>
                             <!-- /main-content-wrap -->

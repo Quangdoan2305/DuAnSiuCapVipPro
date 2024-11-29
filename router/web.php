@@ -14,17 +14,41 @@ if($role == "user"){
         }
         // http://localhost/DuAnSiuCapVipPro/?role=admin&act=login
         case 'login': {
-            $homeController = new HomeController();
+            $homeController = new LoginController();
             $homeController->login();
             break;
         }
         // http://localhost/DuAnSiuCapVipPro/?role=admin&act=post-login
         case 'post-login': {
-            $homeController = new HomeController();
+            $homeController = new LoginController();
             $homeController->postLogin();
             break;
         }
 
+        case 'logout': {
+            $homeController = new LoginController();
+            $homeController->logout();
+            break;
+        }
+
+        case 'all-user': {
+            $homeController = new UserController();
+            $homeController->getAllUser();
+            break;
+        }
+
+        case 'add-user': {
+            $homeController = new UserController();
+            $homeController->addUser();
+            break;
+        }
+
+        case 'post-add-user': {
+            $homeController = new UserController();
+            $homeController->addPostUser();
+            break;
+        }
+        
         case 'prodcut' : {
             break;
         }

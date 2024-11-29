@@ -89,7 +89,7 @@
                     </div>
                 </div>
                 <div class="right">
-                    <img src="images/images-section/Sign%20in.jpg" alt="">
+                    <img src="assets/Admin/images/images-section/Sign in.jpg" alt="">
                 </div>
             </div>
         </div>
