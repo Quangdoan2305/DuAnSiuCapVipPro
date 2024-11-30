@@ -15,13 +15,34 @@ class UserController
         include 'app/Views/Admin/add-user.php';
     }
 
+    public function checkValidate(){
+        $name = $_POST['name'];
+            $email = $_POST['email'];
+            $address = $_POST['address'];
+            $phone = $_POST['phone'];
+            $role = $_POST['role'];
+
+            if($name != "" & $email != "" && $address != "" && $phone != "" && $role != ""){
+                return true;
+            }else{
+                $_SESSION['error'] = "Bạn nhập thiếu thông tin";
+                return false;
+            }
+    }
+
     public function addPostUser()
     {
+        
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if(!$this->checkValidate()){
+                header("Location: " . BASE_URL . "?role=admin&act=add-user");
+                    exit;
+            }
             
             //Them anh
             $uploadDir = 'assets/Admin/upload';
             $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            $destPath = "";
             if (!empty($_FILES['image']['name'])) {
                 $fileTmpPath = $_FILES['image']['tmp_name'];
                 $fileType = mime_content_type($fileTmpPath);
@@ -29,8 +50,6 @@ class UserController
                 $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
                 $newFileName = uniqid() . '.' . $fileExtension;
-
-
                 if (in_array($fileType, $allowedTypes)) {
                     $destPath = $uploadDir . $newFileName;
                     if (!move_uploaded_file($fileTmpPath, $destPath)) {
@@ -54,4 +73,110 @@ class UserController
             }
         }
     }
+
+    public function updateUser(){
+        if(!isset($_GET['id'])){
+            $_SESSION['message'] = 'Vui lòng chọn user cần sửa';
+                header("Location: " . BASE_URL . "?role=admin&act=add-user");
+                exit;
+        }
+        $userModel = new UserModel();
+        $user = $userModel->getUserById();
+        if(!$user){
+            $_SESSION['message'] = 'không tìm thấy dữ liệu';
+                header("Location: " . BASE_URL . "?role=admin&act=add-user");
+                exit;
+        }
+        include 'app/Views/Admin/update-user.php';
+    }
+
+    public function updatePostUser(){
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            if(!isset($_GET['id'])){
+                $_SESSION['message'] = 'Vui lòng chọn user cần sửa';
+                    header("Location: " . BASE_URL . "?role=admin&act=add-user");
+                    exit;
+            }
+            if(!$this->checkValidate()){
+                header("Location: " . BASE_URL . "?role=admin&act=update-user&id=" . $_GET['id'] );
+                exit;
+            }
+            $userModel = new UserModel();
+            $user = $userModel->getUserById();
+            
+            //Them anh
+            $uploadDir = 'assets/Admin/upload';
+            $allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+            $destPath = $user->imgage;
+            if (!empty($_FILES['image']['name'])) {
+                $fileTmpPath = $_FILES['image']['tmp_name'];
+                $fileType = mime_content_type($fileTmpPath);
+                $fileName = basename($_FILES['image']['name']);
+                $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
+
+                $newFileName = uniqid() . '.' . $fileExtension;
+
+
+                if (in_array($fileType, $allowedTypes)) {
+                    $destPath = $uploadDir . $newFileName;
+                    if (!move_uploaded_file($fileTmpPath, $destPath)) {
+                        $destPath = "";
+                    }
+                    // Xóa ảnh cũ
+                    unlink($user->image);
+                }
+            }
+
+
+            $userModel = new UserModel();
+            $message = $userModel->updateUserToDB($destPath);
+
+            if ($message) {
+                $_SESSION['message'] = 'Chỉnh sửa thành công thành công';
+                header("Location: " . BASE_URL . "?role=admin&act=all-user");
+                exit;
+            }else{
+                $_SESSION['message'] = 'Chỉnh sửa không thành công';
+                header("Location: " . BASE_URL . "?role=admin&act=update-user&id=" . $_GET['id'] );
+                exit;
+            }
+        }
+    }
+    public function deleteUser(){
+        if(!isset($_GET['id'])){
+            $_SESSION['message'] = 'Vui lòng chọn user cần xóa';
+                header("Location: " . BASE_URL . "?role=admin&act=all-user");
+                exit;
+        }
+
+        $userModel = new UserModel();
+        $user = $userModel->getUserById();
+        // xóa ảnh
+        if($user->image != "" && $user->image != null){
+            unlink($user->image);
+        }
+
+        $message = $userModel->deleteUser();
+            if ($message) {
+                $_SESSION['message'] = 'Xóa thành công';
+                header("Location: " . BASE_URL . "?role=admin&act=all-user");
+                exit;
+            }else{
+                $_SESSION['message'] = 'xóa không công thành công';
+                header("Location: " . BASE_URL . "?role=admin&act=all-user");
+                exit;
+            }
+    }
+
+    public function showUser(){
+        if(!isset($_GET['id'])){
+            $_SESSION['message'] = 'Vui lòng chọn user cần xóa';
+                header("Location: " . BASE_URL . "?role=admin&act=all-user");
+                exit;
+    }
+    $userModel = new UserModel();
+    $user = $userModel->getUserById();
+
+    include 'app/Views/Admin/show-user.php';
+}
 }

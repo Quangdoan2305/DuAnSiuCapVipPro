@@ -72,6 +72,11 @@
                                     <?php
                                         if(isset($_SESSION['message'])){
                                             echo "<p>". $_SESSION['message'] . "</p>";
+                                            unset($_SESSION['message']);
+                                        }
+                                        if(isset($_SESSION['error'])){
+                                            echo "<p>". $_SESSION['error'] . "</p>";
+                                            unset($_SESSION['error']);
                                         }
                                     ?>
                                     <div class="title-box">

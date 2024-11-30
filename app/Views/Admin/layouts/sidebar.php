@@ -47,19 +47,27 @@
                             </li>
                         </ul>
                     </li>
-                    <li class="menu-item has-children">
+                    <li class="menu-item has-children
+                    <?php
+                    if (isset($_GET['act']) && ($_GET['act'] == 'all-category' || $_GET['act'] == 'add-category' || $_GET['act'] == 'update-category' || $_GET['act'] == 'show-category')) {
+                        echo 'active';
+                    }
+                    ?>
+                    
+                    
+                    ">
                         <a href="javascript:void(0);" class="menu-item-button">
                             <div class="icon"><i class="icon-layers"></i></div>
                             <div class="text">Category</div>
                         </a>
                         <ul class="sub-menu">
                             <li class="sub-menu-item">
-                                <a href="category-list.html" class="">
+                                <a href="<?= BASE_URL ?>?role=admin&act=all-category" class="">
                                     <div class="text">Category list</div>
                                 </a>
                             </li>
                             <li class="sub-menu-item">
-                                <a href="new-category.html" class="">
+                                <a href="<?= BASE_URL ?>?role=admin&act=add-category" class="">
                                     <div class="text">New category</div>
                                 </a>
                             </li>
@@ -116,7 +124,7 @@
                     </li>
                     <li class="menu-item has-children
                         <?php
-                            if (isset($_GET['act']) && ($_GET['act'] == 'all-user' || $_GET['act'] == 'add-user')) {
+                            if (isset($_GET['act']) && ($_GET['act'] == 'all-user' || $_GET['act'] == 'add-user' || $_GET['act'] == 'show-user' || $_GET['act'] == 'update-user')) {
                                 echo 'active';
                             }
                         ?>

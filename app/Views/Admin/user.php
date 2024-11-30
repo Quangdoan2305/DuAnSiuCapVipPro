@@ -72,6 +72,7 @@
                                     <?php
                                         if(isset($_SESSION['message'])){
                                             echo "<p>". $_SESSION['message'] . "</p>";
+                                            unset($_SESSION['message']);
                                         }
                                     ?>
                                     <div class="title-box">
@@ -130,13 +131,20 @@
                                                 <div class="body-text text-main-dark mt-4"><?= $value->email?></div>
                                                 <div class="list-icon-function">
                                                     <div class="item eye">
-                                                        <i class="icon-eye"></i>
+                                                        <a href="<?= BASE_URL ?>?role=admin&act=show-user&id=<?= $value->id ?>">
+                                                            <i class="icon-eye"></i>
+                                                        </a>
                                                     </div>
                                                     <div class="item edit">
-                                                        <i class="icon-edit-3"></i>
+                                                        <a href="<?= BASE_URL ?>?role=admin&act=update-user&id=<?= $value->id ?>">
+                                                            <i class="icon-edit-3"></i>
+                                                        </a>
                                                     </div>
                                                     <div class="item trash">
-                                                        <i class="icon-trash-2"></i>
+                                                        <a 
+                                                            href="<?= BASE_URL ?>?role=admin&act=delete-user&id=<?= $value->id ?>">
+                                                            <i class="icon-trash-2"></i>
+                                                        </a>
                                                     </div>
                                                 </div>
                                             </li>

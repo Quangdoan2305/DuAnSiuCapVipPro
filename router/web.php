@@ -14,38 +14,96 @@ if($role == "user"){
         }
         // http://localhost/DuAnSiuCapVipPro/?role=admin&act=login
         case 'login': {
-            $homeController = new LoginController();
-            $homeController->login();
+            $loginController = new LoginController();
+            $loginController->login();
             break;
         }
         // http://localhost/DuAnSiuCapVipPro/?role=admin&act=post-login
         case 'post-login': {
-            $homeController = new LoginController();
-            $homeController->postLogin();
+            $loginController = new LoginController();
+            $loginController->postLogin();
             break;
         }
 
         case 'logout': {
-            $homeController = new LoginController();
-            $homeController->logout();
+            $loginController = new LoginController();
+            $loginController->logout();
             break;
         }
 
         case 'all-user': {
-            $homeController = new UserController();
-            $homeController->getAllUser();
+            $userController = new UserController();
+            $userController->getAllUser();
             break;
         }
 
         case 'add-user': {
-            $homeController = new UserController();
-            $homeController->addUser();
+            $userController = new UserController();
+            $userController->addUser();
             break;
         }
 
         case 'post-add-user': {
-            $homeController = new UserController();
-            $homeController->addPostUser();
+            $userController = new UserController();
+            $userController->addPostUser();
+            break;
+        }
+        case 'update-user': {
+            $userController = new UserController();
+            $userController->updateUser();
+            break;
+        }
+        case 'update-post-user': {
+            $userController = new UserController();
+            $userController->updatePostUser();
+            break;
+        }
+        case 'delete-user': {
+            $userController = new UserController();
+            $userController->deleteUser();
+            break;
+        }
+        case 'show-user': {
+            $userController = new UserController();
+            $userController->showUser();
+            break;
+        }
+
+        case 'all-category': {
+            $categoryController = new CategoryController();
+            $categoryController->getAllCategory();
+            break;
+        }
+
+        case 'add-category': {
+            $categoryController = new CategoryController();
+            $categoryController->addCategory();
+            break;
+        }
+
+        case 'add-post-category': {
+            $categoryController = new CategoryController();
+            $categoryController->addPostCategory();
+            break;
+        }
+        case 'delete-category': {
+            $categoryController = new CategoryController();
+            $categoryController->deleteCategory();
+            break;
+        }
+        case 'update-category': {
+            $categoryController = new CategoryController();
+            $categoryController->updateCategory();
+            break;
+        }
+        case 'update-post-category': {
+            $categoryController = new CategoryController();
+            $categoryController->updatePostCategory();
+            break;
+        }
+        case 'show-category': {
+            $categoryController = new CategoryController();
+            $categoryController->showCategory();
             break;
         }
         
