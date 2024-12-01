@@ -29,19 +29,27 @@
                             <div class="text">Dashboard</div>
                         </a>
                     </li>
-                    <li class="menu-item has-children">
+                    <li class="menu-item has-children
+                        <?php
+                            if (isset($_GET['act']) && ($_GET['act'] == 'all-prodcut' || $_GET['act'] == 'add-prodcut')) {
+                                echo 'active';
+                            }
+                        ?>
+                    
+                    
+                    ">
                         <a href="javascript:void(0);" class="menu-item-button">
                             <div class="icon"><i class="icon-file-plus"></i></div>
                             <div class="text">Product</div>
                         </a>
                         <ul class="sub-menu">
                             <li class="sub-menu-item">
-                                <a href="product-list.html" class="">
+                                <a href="<?= BASE_URL ?>?role=admin&act=all-product" class="">
                                     <div class="text">All Products</div>
                                 </a>
                             </li>
                             <li class="sub-menu-item">
-                                <a href="add-product.html" class="">
+                                <a href="<?= BASE_URL ?>?role=admin&act=add-product" class="">
                                     <div class="text">Add Product</div>
                                 </a>
                             </li>
@@ -124,9 +132,9 @@
                     </li>
                     <li class="menu-item has-children
                         <?php
-                            if (isset($_GET['act']) && ($_GET['act'] == 'all-user' || $_GET['act'] == 'add-user' || $_GET['act'] == 'show-user' || $_GET['act'] == 'update-user')) {
-                                echo 'active';
-                            }
+                        if (isset($_GET['act']) && ($_GET['act'] == 'all-user' || $_GET['act'] == 'add-user' || $_GET['act'] == 'show-user' || $_GET['act'] == 'update-user')) {
+                            echo 'active';
+                        }
                         ?>
                     
                     

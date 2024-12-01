@@ -133,6 +133,7 @@
                                                     </div>
                                                     <div class="item trash">
                                                         <a 
+                                                            onclick="return confirm('Bạn có muốn xóa không ?')"
                                                             href="<?= BASE_URL?>?role=admin&act=delete-category&id=<?=$value->id?>">
                                                             <i class="icon-trash-2"></i>
                                                         </a>
