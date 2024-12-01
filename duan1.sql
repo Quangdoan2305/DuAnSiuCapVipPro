@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2024 at 08:53 PM
+-- Generation Time: Dec 01, 2024 at 07:10 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -75,14 +75,6 @@ CREATE TABLE `cart` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `cart`
---
-
-INSERT INTO `cart` (`id`, `user_id`, `created_at`, `updated_at`) VALUES
-(1, 1, '2024-11-13 04:03:53', '2024-11-13 04:03:53'),
-(2, 2, '2024-11-13 04:03:53', '2024-11-13 04:03:53');
-
 -- --------------------------------------------------------
 
 --
@@ -96,15 +88,6 @@ CREATE TABLE `cart_detail` (
   `quantity` int(11) DEFAULT 1,
   `product_variants_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `cart_detail`
---
-
-INSERT INTO `cart_detail` (`id`, `cart_id`, `product_id`, `quantity`, `product_variants_id`) VALUES
-(1, 1, 1, 2, 1),
-(2, 1, 2, 1, 3),
-(3, 2, 1, 1, 2);
 
 -- --------------------------------------------------------
 
@@ -122,10 +105,8 @@ CREATE TABLE `categories` (
 --
 
 INSERT INTO `categories` (`id`, `name`) VALUES
-(1, 'Áo '),
-(4, 'Quần Jeen'),
-(8, 'Giày'),
-(9, 'Đồ chơii');
+(1, 'Hoodie'),
+(12, 'T-shirts');
 
 -- --------------------------------------------------------
 
@@ -142,14 +123,6 @@ CREATE TABLE `order` (
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `order`
---
-
-INSERT INTO `order` (`id`, `user_id`, `status`, `total`, `created_at`, `updated_at`) VALUES
-(1, 1, 'completed', 550000.00, '2024-11-13 04:04:09', '2024-11-13 04:04:09'),
-(2, 2, 'pending', 150000.00, '2024-11-13 04:04:09', '2024-11-13 04:04:09');
-
 -- --------------------------------------------------------
 
 --
@@ -164,15 +137,6 @@ CREATE TABLE `order_detail` (
   `price` int(11) NOT NULL,
   `product_variants_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `order_detail`
---
-
-INSERT INTO `order_detail` (`id`, `order_id`, `product_id`, `quantity`, `price`, `product_variants_id`) VALUES
-(1, 1, 1, 2, 150000, 1),
-(2, 1, 2, 1, 250000, 3),
-(3, 2, 1, 1, 150000, 2);
 
 -- --------------------------------------------------------
 
@@ -198,11 +162,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `category_id`, `description`, `price`, `price_sale`, `stock`, `image_main`, `created_at`, `updated_at`) VALUES
-(1, 'Áo thun', 1, 'Áo thun 100% cotton', 150000, NULL, 100, 'assets/Admin/upload/Snitch_July22_5585.webp', '2024-11-13 04:02:43', '2024-11-25 20:09:24'),
-(2, 'Quần jean', 1, 'Quần jean phong cách', 250000, NULL, 50, 'assets/Admin/upload/OIP.jpg', '2024-11-13 04:02:43', '2024-11-25 20:06:48'),
-(31, 'Nhà vệ sinh', 1, 'Nhà vệ sinh đẹp!!', 1111, 11, 100, 'assets/Admin/upload/6743896988d06.png', '2024-11-24 13:15:37', '2024-11-24 13:15:37'),
-(32, 'Thỏ Snowball', 9, 'Thỏ đẹp vc', 1000, 100, 100, 'assets/Admin/upload/674389a31d47e.jpg', '2024-11-24 13:16:35', '2024-11-24 13:19:42'),
-(33, 'Giày thể thao', 8, 'Giày đẹp quá bây ơi~~', 1000, 10, 100, 'assets/Admin/upload/67438a8a71f41.jpeg', '2024-11-24 13:20:26', '2024-11-24 13:20:26');
+(47, 'Ronaldo232131', 1, '', 21, 600000, 100, 'assets/Admin/upload674bfd6e959d7.png', '2024-12-01 00:08:37', '2024-12-01 00:08:53');
 
 -- --------------------------------------------------------
 
@@ -217,14 +177,6 @@ CREATE TABLE `product_comment` (
   `comment` text DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `product_comment`
---
-
-INSERT INTO `product_comment` (`id`, `product_id`, `user_id`, `comment`, `created_at`) VALUES
-(1, 1, 1, 'Áo thun đẹp và thoải mái!', '2024-11-13 04:04:28'),
-(2, 2, 2, 'Quần jean này rất phong cách!', '2024-11-13 04:04:28');
 
 -- --------------------------------------------------------
 
@@ -243,10 +195,8 @@ CREATE TABLE `product_image` (
 --
 
 INSERT INTO `product_image` (`id`, `product_id`, `image`) VALUES
-(35, 31, 'assets/Admin/upload/674389698a063.png'),
-(36, 31, 'assets/Admin/upload/674389698b29b.png'),
-(39, 32, ''),
-(40, 32, '');
+(64, 47, ''),
+(65, 47, '');
 
 -- --------------------------------------------------------
 
@@ -261,14 +211,6 @@ CREATE TABLE `product_rating` (
   `rating` tinyint(4) DEFAULT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `product_rating`
---
-
-INSERT INTO `product_rating` (`id`, `product_id`, `user_id`, `rating`, `created_at`) VALUES
-(1, 1, 1, 5, '2024-11-13 04:04:35'),
-(2, 2, 2, 4, '2024-11-13 04:04:35');
 
 -- --------------------------------------------------------
 
@@ -285,16 +227,6 @@ CREATE TABLE `product_variants` (
   `sku` varchar(50) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
---
--- Dumping data for table `product_variants`
---
-
-INSERT INTO `product_variants` (`id`, `product_id`, `price`, `stock`, `image`, `sku`) VALUES
-(1, 1, 150000.00, 30, NULL, 'ABC1'),
-(2, 1, 300000.00, 20, NULL, 'ABC2'),
-(3, 2, 250000.00, 15, NULL, 'ABC3'),
-(4, 2, 250000.00, 25, NULL, 'ABC4');
-
 -- --------------------------------------------------------
 
 --
@@ -306,16 +238,6 @@ CREATE TABLE `product_variant_attribute` (
   `attribute_value_id` int(11) NOT NULL,
   `product_variants_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
---
--- Dumping data for table `product_variant_attribute`
---
-
-INSERT INTO `product_variant_attribute` (`id`, `attribute_value_id`, `product_variants_id`) VALUES
-(1, 1, 1),
-(2, 3, 1),
-(3, 2, 2),
-(4, 4, 2);
 
 -- --------------------------------------------------------
 
@@ -341,8 +263,7 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `address`, `phone`, `image`, `created_at`, `updated_at`, `role`) VALUES
-(1, 'Ngọc Quang', 'quang2305@gmail.com', '$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', '123 Main St', '0123456789', 'assets/Admin/upload/6743ff3a2f07d.jpg', '2024-11-13 04:02:30', '2024-11-29 15:52:37', '1'),
-(2, 'Jane Smith', 'jane@gmail.com', '$2y$10$KPhZ0zHE.98Mb95.ttpkqOoMxKny4k3Tf4s9BNwXaJJrC9kjYE/Vm$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', '456 Elm St', '0987654321', '', '2024-11-13 04:02:30', '2024-11-29 15:53:56', '2'),
+(1, 'Ngọc Quang', 'quang2305@gmail.com', '$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', 'VietNam', '0987612345', 'assets/Admin/upload/6743ff3a2f07d.jpg', '2024-11-30 22:23:16', '2024-11-30 22:23:16', '1'),
 (3, 'Người dùng 1', 'user@gmail.com', '$2y$10$9xFiREP7MgwBm2.GTbrwWOJFbe7jSG2aXvspErGDv87mW2AXtcYqe', '123 Main St', '0987612345', '', '2024-11-29 15:56:21', '2024-11-29 15:58:00', '2'),
 (18, 'trungkien2005', 'trungkien@gmail.com', '$2y$10$60QFU6Sx3gaCPRzgWLkbJ.SEFjd3KuCDIn8jarAq6VOv9aAPWPD3e', 'Portual', '0987654123', 'assets/Admin/upload674a1a38e4100.png', '2024-11-29 13:47:05', '2024-11-29 13:47:05', '1');
 
@@ -485,7 +406,7 @@ ALTER TABLE `cart_detail`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `order`
@@ -503,7 +424,7 @@ ALTER TABLE `order_detail`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 
 --
 -- AUTO_INCREMENT for table `product_comment`
@@ -515,7 +436,7 @@ ALTER TABLE `product_comment`
 -- AUTO_INCREMENT for table `product_image`
 --
 ALTER TABLE `product_image`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
 
 --
 -- AUTO_INCREMENT for table `product_rating`
@@ -539,7 +460,7 @@ ALTER TABLE `product_variant_attribute`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- Constraints for dumped tables

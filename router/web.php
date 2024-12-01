@@ -3,7 +3,54 @@ $role = isset($_GET['role']) ? $_GET['role'] : "user";
 $act = isset($_GET['act']) ? $_GET['act'] : "";
 
 if($role == "user"){
-    echo "Trang User";
+    switch( $act){
+        case '':{
+            $dashBoardController = new DashboardController();
+            $dashBoardController->dashboard();
+            break;
+        }
+        case 'login':{
+            $loginController = new LoginUserController();
+            $loginController->login();
+            break;
+        }
+        case 'post-login':{
+            $loginController = new LoginUserController();
+            $loginController->postLogin();
+            break;
+        }
+        case 'logout':{
+            $loginController = new LoginUserController();
+            $loginController->logout();
+            break;
+        }
+        case 'register':{
+            $loginController = new LoginUserController();
+            $loginController->register();
+            break;
+        }
+        case 'post-register':{
+            $loginController = new LoginUserController();
+            $loginController->postRegister();
+            break;
+        }
+        case 'my-account':{
+            $dashBoardController = new DashboardController();
+            $dashBoardController->myAccount();
+            break;
+        }
+        case 'account-detail':{
+            $dashBoardController = new DashboardController();
+            $dashBoardController->accountDetail();
+            break;
+        }
+        case 'account-update':{
+            $dashBoardController = new DashboardController();
+            $dashBoardController->accountUpdate();
+            break;
+        }
+        
+    }
 }else{
     switch($act){
         // http://localhost/DuAnSiuCapVipPro/?role=admin&act=home
