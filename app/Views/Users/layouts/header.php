@@ -213,7 +213,7 @@
                                     </div>
                                 </li>
                                 <li class="menu-item">
-                                    <a href="#" class="item-link">Products<i class="icon icon-arrow-down"></i></a>
+                                    <a href="<?= BASE_URL ?>?act=shop" class="item-link">Products<i class="icon icon-arrow-down"></i></a>
                                     <div class="sub-menu mega-menu">
                                         <div class="container">
                                             <div class="row">

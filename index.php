@@ -29,7 +29,7 @@ include 'app/Controllers/Users/LoginUserController.php';
 include 'app/Controllers/Users/DashboardController.php';
 
 
-const BASE_URL = "http://localhost:8077/DuAnSiuCapVipPro/";
+const BASE_URL = "http://localhost/DuAnSiuCapVipPro/";
 //Router
 include 'router/web.php';
 

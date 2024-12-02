@@ -49,6 +49,17 @@ if($role == "user"){
             $dashBoardController->accountUpdate();
             break;
         }
+
+        case 'shop':{
+            $dashBoardController = new DashboardController();
+            $dashBoardController->showShop();
+            break;
+        }
+        case 'product-detail':{
+            $dashBoardController = new DashboardController();
+            $dashBoardController->productDetail();
+            break;
+        }
         
     }
 }else{
