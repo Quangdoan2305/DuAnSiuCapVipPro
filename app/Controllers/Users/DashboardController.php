@@ -165,4 +165,22 @@ class DashboardController
         $data = $cartModel->showCartModel();
         include 'app/Views/Users/shopping-cart.php';
     }
+
+    public function checkout()
+    {
+        $userModel = new UserModel2();
+        $currentUser = $userModel->getCurrentUser();
+
+        $cartModel = new CartUserModel();
+        $products = $cartModel->showCartModel();
+        include 'app/Views/Users/check-out.php';
+    }
+
+    public function submitCheckOut()
+    {
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $orderModel = new OrderUserModel();
+            $orderModel->order();
+        }
+    }
 }

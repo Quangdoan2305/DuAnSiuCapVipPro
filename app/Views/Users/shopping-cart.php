@@ -211,7 +211,7 @@
                                     </label>
                                 </div>
                                 <div class="cart-checkout-btn">
-                                    <a href="checkout.html" class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">
+                                    <a href="#" id="link-check-out" class="tf-btn w-100 btn-fill animate-hover-btn radius-3 justify-content-center">
                                         <span>Check out</span>
                                     </a>
                                 </div>
@@ -389,6 +389,15 @@
 
             $(".total-value").text(totalMoney.toLocaleString() + " $")
         }
+
+        $("#link-check-out").click(function(event){
+            event.preventDefault();
+            if ($("#check-agree").is(":checked")) {
+                window.location.replace("<?= BASE_URL ?>?act=check-out")
+            }else {
+                alert("Vui lòng đồng ý điều khoản")
+            }
+        })
     </script>
 </body>
 

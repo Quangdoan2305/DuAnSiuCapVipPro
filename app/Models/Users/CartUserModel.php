@@ -12,7 +12,6 @@ class CartUserModel
         $productId = $_POST['productId'];
         $quantity = $_POST['quantity'];
         $userId = $_SESSION['users']['id'];
-
         $now = date('Y-m-d H:i:s');
 
         $sql = "select * from cart where user_id = :user_id";
@@ -72,6 +71,7 @@ class CartUserModel
         $sql = "select * from cart where user_id = :user_id";
         $stmt = $this->db->pdo->prepare($sql);
         $stmt->bindParam(':user_id', $userId);
+        $now = date('Y-m-d H:i:s');
         $stmt->execute();
         $cart = $stmt->fetch();
         if (!$cart) {
